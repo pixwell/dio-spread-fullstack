@@ -3,16 +3,13 @@
     --font-family: "Plus Jakarta Sans", Helvetica, sans-serif;
     --font-size: 16px;
     --border-radius: 10px;
+    --border-color-default: #D0D3D6;
     --color-laranja: #fb724b;
     --color-magenta: #ff0069;
     --color-violeta: #d300c5;
     --color-link: #0064e0;
-    --color-azul-05: #ecf3ff;
-    --color-azul-30: #aac9ff;
-    --color-azul-40: #77a7ff;
-    --color-azul-60: #1877f2;
-    --color-azul-70: #2851a3;
-    --color-azul-80: #1d3c78;
+    --color-link-disabled: #6faefb;
+    --color-link-default-hover: #e2e8ef;
 }
 
 /* RESET CSS
@@ -51,7 +48,10 @@ input {
     font: inherit;
 }
 
-button {cursor: pointer;}
+button {
+    cursor: pointer;
+    transition: all 500ms ease;
+}
 
 img,
 video,
@@ -62,6 +62,12 @@ iframe {
 }
 /* FIM - RESET CSS
 ====================================== */
+.w-full{width: 100%}
+.mb-10{margin-bottom: 10px;}
+.mb-20{margin-bottom: 20px;}
+.mb-30{margin-bottom: 30px;}
+.mb-40{margin-bottom: 40px;}
+.mb-50{margin-bottom: 50px;}
 
 .wrapper{}
 
@@ -96,12 +102,78 @@ iframe {
 .login__title{
     font-size: 17px;
     font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .login__form input{
     width: 100%;
-    border: 1px solid #D0D3D6;
-    height: 38px;
+    border: 1px solid var(--border-color-default);
     padding: 10px 16px;
     border-radius: var(--border-radius);
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.btn{
+    display: inline-block;
+    line-height: 1;
+    font-size: 15px;
+    /*reset para input submit*/
+    border: 0;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.btn-blue,
+.btn-default,
+.btn-outline-default,
+.btn-outline-blue{
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 30px;
+}
+
+.btn-blue{
+    color: #FFF;
+    background-color: var(--color-link);
+}
+
+.btn-blue:hover{
+    background-color: var(--color-link-disabled);
+}
+
+.btn-default{
+    color: #000;
+    background-color: transparent;
+}
+.btn-default:hover{
+    background-color: var(--color-link-default-hover);
+}
+
+.btn-outline-default{
+    color: #000;
+    border: 1px solid var(--border-color-default);
+    background-color: transparent;
+}
+
+.btn-outline-blue{
+    color: var(--color-link);
+    border: 1px solid var(--color-link);;
+    background-color: transparent;
+}
+
+.btn-outline-default:hover,
+.btn-outline-blue:hover{
+    background-color: var(--color-link-default-hover);
+}
+
+.meta{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
 }
