@@ -1,30 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Login</title>
-</head>
-<body>
-    <div class="intro">
-        [LOGOTIPO]
-        Veja momentos do dia a dia dos seus <span class="degrade">amigos próximos</span>.
-        [IMAGEM DESTAQUE]
-    </div>
-    <div class="login">
-        <h2>Entrar no Instagram</h2>
-        <form>
-            <input type="text" name="login" id="login" placeholder="Número de celular, nome de usuário ou email">
-            <input type="pasword" name="password" id="password" placeholder="Senha">
-            <input type="submit" value="Entrar">
-        </form>
-        <a href="#">Esqueceu a senha?</a>
-        <a href="#">Entrar com Facebook</a>
-        <a href="#">Criar nova conta</a>
 
-        [LOGO META]
-        
-    </div>
-</body>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <title>Instagram</title>
+        <style>
+            .box-1{background-color: aquamarine;}
+            .box-2{background-color: #94d8fc}
+            .box-3{background-color: #fca8f6;}
+            .box-4{background-color: #7fd9ff;}
+            .box-5{background-color: #e794fc;}
+            .box-6{background-color: #fca8c8;}
+        </style>
+    </head>
+
+    <body>
+        <main>
+
+            <section class="intro">
+                <div class="intro__content">
+
+                    <h1><img width="100" height="100" src="images/logo.png" alt="Logo Instagram"></h1>
+
+                    <p class="intro__text">
+                        Veja momentos do dia a dia dos seus
+                        <span class="degrade">amigos próximos</span>.
+                    </p>
+
+                    <div class="intro__image">
+                        <img src="images/imagem-destaque.webp" alt="Imagem destaque Instagram">
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="login">
+                <div class="login__box">
+
+                    <h2 class="login__title">Entrar no Instagram</h2>
+
+                    <form class="login__form">
+
+                        <input type="text" name="login" id="login" placeholder="Número de celular, nome de usuário ou email">
+
+                        <input type="password" name="password" id="password" placeholder="Senha">
+
+                        <button type="submit">Entrar</button>
+
+                    </form>
+
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+
+                    <a href="#" class="facebook-login">Entrar com Facebook</a>
+
+                    <a href="#" class="create-account">Criar nova conta</a>
+
+                    <div class="meta">Meta</div>
+
+                </div>
+
+            </section>
+
+        </main>
+    </body>
 </html>
