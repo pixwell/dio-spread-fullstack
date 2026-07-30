@@ -1,4 +1,11 @@
 :root {
+    /* Breakpoints salvos apenas para documentacao */
+    --breakpoint-sm: 36rem; /* 576px */
+    --breakpoint-md: 48rem; /* 768px */
+    --breakpoint-lg: 62rem; /* 992px */
+    --breakpoint-xl: 75rem; /* 1200px */
+    --breakpoint-2xl: 87.5rem; /* 1400px */
+
     --text-color: #000;
     --font-family: "Plus Jakarta Sans", Helvetica, sans-serif;
     --font-size: 16px;
@@ -69,11 +76,14 @@ iframe {
 .mb-40{margin-bottom: 40px;}
 .mb-50{margin-bottom: 50px;}
 
-.wrapper{}
 
-.intro{
-    padding: 40px 20px;
-}
+/* MOBILE FIRST
+====================================== */
+
+/* Intro - Lado esquerdo */
+.intro{padding: 40px 20px}
+
+.intro__logotipo{margin: 0 auto;}
 
 .intro__content{
     display: flex;
@@ -82,6 +92,7 @@ iframe {
 }
 
 .intro__text{
+    text-align: center;
     font-size: 30px;
     line-height: 1.5;
 }
@@ -94,9 +105,12 @@ iframe {
     color: transparent;
 }
 
+.intro__image{display: none}
+
+/* Login - Lado direito */
 
 .login{
-    padding: 40px 20px;
+    padding: 0 20px;
 }
 
 .login__title{
@@ -162,7 +176,7 @@ iframe {
 
 .btn-outline-blue{
     color: var(--color-link);
-    border: 1px solid var(--color-link);;
+    border: 1px solid var(--color-link);
     background-color: transparent;
 }
 
@@ -176,4 +190,68 @@ iframe {
     align-items: center;
     justify-content: center;
     font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.links-footer{display: none}
+
+.copyrights{
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* TABLET e DESKTOP
+====================================== */
+
+@media(min-width: 62rem){ /* 992px */
+    .wrapper{display: flex}
+
+    .intro,
+    .login{
+        width: 50%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .intro{padding: 0 20px}
+    
+    .intro__logotipo{margin: 0}
+
+    .intro__text{
+        width: 60%;
+        margin: 0 auto;
+    }
+    
+    .intro__image{
+        display: block;
+        width: 60%;
+        margin: 0 auto;
+    }
+    
+    .login{border-left: 2px solid var(--border-color-default)}    
+
+    .links-footer{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        color: #666;
+        border-top: 1px solid var(--border-color-default);
+        padding: 25px 20px;
+    }
+}
+
+@media(min-width: 75rem){ /* 1200px */
+    .intro{width: 60%}
+    .login{width: 40%}
 }
