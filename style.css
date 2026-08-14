@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@layer utilities {
+  /* Container com largura padrao */
+  .container { 
+    @apply max-w-3xl mx-auto px-4;
+  }
+
+}
