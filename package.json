@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "npm tsc -b",
+    "build": "npx tsc",
     "css": "npx @tailwindcss/cli -i ./style.css -o ./dist/style.css --watch"
   },
   "devDependencies": {
