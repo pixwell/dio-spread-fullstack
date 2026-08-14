@@ -1,9 +1,91 @@
 @import "tailwindcss";
+@layer base {
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        @apply        
+        text-zinc-600 
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 { 
+        @apply 
+        font-bold
+        text-zinc-800
+        mb-3
+    }
+
+    h1{
+        @apply text-4xl
+    }
+
+    h2{
+        @apply text-3xl
+    }
+
+    h3{
+        @apply text-2xl
+    }
+
+    a,
+    button,
+    input[type="submit"] {
+        @apply 
+        transition-all duration-300
+        cursor-pointer
+    }
+
+    input[type="text"]{
+        @apply
+        w-full 
+        p-2 
+        border border-zinc-300 outline-zinc-400
+
+        rounded-lg 
+        bg-white
+    }
+}
+
+@layer components {
+    .btn{
+        @apply 
+        px-4 py-2 
+        inline-block 
+        rounded-lg 
+
+        text-center text-sm
+        text-gray-600
+        border border-zinc-300
+        hover:scale-105 hover:shadow-sm
+        cursor-pointer;
+    }
+
+    .data-table{
+        @apply
+        w-full
+    }
+
+    .data-table th{
+        @apply
+        p-3
+        border border-zinc-300 
+    }
+
+    .data-table td{
+        @apply
+        p-3
+        border-b-1 border-zinc-300 
+    }
+
+}
 
 @layer utilities {
   /* Container com largura padrao */
   .container { 
-    @apply max-w-3xl mx-auto px-4;
+    @apply max-w-2xl mx-auto px-4;
   }
 
 }
