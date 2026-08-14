@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "npm tsc -b"
+  },
   "devDependencies": {
     "typescript": "^7.0.2"
   }
