@@ -217,6 +217,9 @@
   .text-zinc-600 {
     color: var(--color-zinc-600);
   }
+  .uppercase {
+    text-transform: uppercase;
+  }
 }
 @layer base {
   body {
