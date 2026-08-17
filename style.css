@@ -63,6 +63,17 @@
         cursor-pointer;
     }
 
+    .btn-delete{
+        @apply
+        px-2.5
+        pb-0.5
+        rounded-full
+        cursor-pointer
+
+        text-red-400 hover:text-red-500
+        border border-red-400 hover:border-red-500
+    }
+
     .data-table{
         @apply
         w-full
