@@ -75,6 +75,16 @@ interface VeiculoProps{
         veiculoList.forEach( item => {
             patio().render(item)
         })
+    } else {
+        const tr = document.createElement('tr')
+
+        const td = document.createElement('td')
+        td.setAttribute('colspan', '4')
+        td.classList.add('text-center')
+        td.innerText = 'Nenhum veículo registrado ainda.'
+
+        tr.append(td)
+        patioTable?.appendChild(tr)
     }
 
     form?.addEventListener('submit', (event) => {
