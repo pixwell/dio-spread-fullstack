@@ -2,9 +2,9 @@
     const form = document.getElementById('envia-veiculo');
     const nome = document.getElementById('nome');
     const placa = document.getElementById('placa');
+    const patioTable = document.getElementById('patio');
     const storageKey = 'patio';
     function patio() {
-        const patioTable = document.getElementById('patio');
         //Recuperar os dados do localStorage e transformar de JSON para objetos
         function ler() {
             const storage = localStorage.getItem(storageKey);
@@ -49,9 +49,11 @@
         return { ler, salvar, remover, render };
     }
     const veiculoList = patio().ler();
-    veiculoList.map(item => {
-        patio().render(item);
-    });
+    if (veiculoList.length > 0) {
+        veiculoList.forEach(item => {
+            patio().render(item);
+        });
+    }
     form?.addEventListener('submit', (event) => {
         event.preventDefault();
         const nomeField = nome?.value;

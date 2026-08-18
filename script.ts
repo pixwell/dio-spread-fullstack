@@ -9,10 +9,10 @@ interface VeiculoProps{
     const form = document.getElementById('envia-veiculo') as HTMLFormElement
     const nome = document.getElementById('nome') as HTMLInputElement
     const placa = document.getElementById('placa') as HTMLInputElement
+    const patioTable = document.getElementById('patio')
     const storageKey = 'patio'
     
     function patio(){
-        const patioTable = document.getElementById('patio')
 
         //Recuperar os dados do localStorage e transformar de JSON para objetos
         function ler(): VeiculoProps[]{
@@ -71,9 +71,11 @@ interface VeiculoProps{
 
     const veiculoList = patio().ler()
     
-    veiculoList.map( item => {
-        patio().render(item)
-    })
+    if(veiculoList.length > 0){
+        veiculoList.forEach( item => {
+            patio().render(item)
+        })
+    }
 
     form?.addEventListener('submit', (event) => {
         event.preventDefault()
