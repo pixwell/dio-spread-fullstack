@@ -30,6 +30,12 @@ interface VeiculoProps{
 
         //Refletir os dados na tabela (<tbody>)
         function render(veiculo: VeiculoProps){
+            //Se a tabela estiver sem veículos, apague o tr com o aviso
+            //E depois inicie a criacao da nova linha
+            const semVeiculo = document.getElementById('storage-vazio')
+            semVeiculo ? semVeiculo.remove() : ''
+            
+            //Linha
             const tr = document.createElement('tr')
 
             // td Nome
@@ -69,6 +75,7 @@ interface VeiculoProps{
         return {ler, salvar, remover, render}    
     }
 
+    //Faz a primeira leitura do localStorage
     const veiculoList = patio().ler()
     
     if(veiculoList.length > 0){
@@ -77,6 +84,7 @@ interface VeiculoProps{
         })
     } else {
         const tr = document.createElement('tr')
+        tr.id = 'storage-vazio'
 
         const td = document.createElement('td')
         td.setAttribute('colspan', '4')
