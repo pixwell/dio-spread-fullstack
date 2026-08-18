@@ -2,12 +2,18 @@
     const form = document.getElementById('envia-veiculo');
     const nome = document.getElementById('nome');
     const placa = document.getElementById('placa');
+    const storageKey = 'patio';
     function patio() {
         const patioTable = document.getElementById('patio');
         //Recuperar os dados do localStorage e transformar de JSON para objetos
-        function ler() { }
+        function ler() {
+            const storage = localStorage.getItem(storageKey);
+            return storage ? JSON.parse(storage) : [];
+        }
         //Receber um veículo conforme VeiculoProps e persistir os dados
-        function adicionar(veiculo) { }
+        function salvar(veiculo) {
+            localStorage.setItem(storageKey, JSON.stringify([...ler(), veiculo]));
+        }
         //Remover um veículo dos dados persistidos
         function remover() { }
         //Refletir os dados na tabela (<tbody>)
@@ -24,10 +30,11 @@
             // td Entrada
             const tdEntrada = document.createElement('td');
             tdEntrada.classList.add('text-center');
-            tdEntrada.innerHTML = veiculo.entrada.toLocaleDateString('pt-BR');
+            const date = new Date(veiculo.entrada);
+            tdEntrada.innerHTML = date.toLocaleDateString('pt-BR');
             //Botao delete
             const buttonDel = document.createElement('button');
-            buttonDel.setAttribute('data-placa', veiculo.placa);
+            buttonDel.setAttribute('data-id', veiculo.id);
             buttonDel.classList.add('btn-delete');
             buttonDel.innerHTML = 'x';
             // td acao
@@ -39,8 +46,12 @@
             //Adiciona linha na tabela
             patioTable?.appendChild(tr);
         }
-        return { ler, adicionar, remover, render };
+        return { ler, salvar, remover, render };
     }
+    const veiculoList = patio().ler();
+    veiculoList.map(item => {
+        patio().render(item);
+    });
     form?.addEventListener('submit', (event) => {
         event.preventDefault();
         const nomeField = nome?.value;
@@ -49,8 +60,14 @@
             alert('Os campos nome e placa são obrigatórios!');
             return;
         }
-        //patio().adicionar({nome: nomeField, placa: placaField, entrada: new Date()})
-        patio().render({ nome: nomeField, placa: placaField, entrada: new Date() });
+        const veiculo = {
+            id: crypto.randomUUID(),
+            nome: nomeField,
+            placa: placaField,
+            entrada: new Date()
+        };
+        patio().salvar(veiculo);
+        patio().render(veiculo);
         // Limpa os campos
         form.reset();
     });

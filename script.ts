@@ -1,4 +1,5 @@
 interface VeiculoProps{
+    id: string;
     nome: string;
     placa: string;
     entrada: Date;
@@ -8,13 +9,22 @@ interface VeiculoProps{
     const form = document.getElementById('envia-veiculo') as HTMLFormElement
     const nome = document.getElementById('nome') as HTMLInputElement
     const placa = document.getElementById('placa') as HTMLInputElement
+    const storageKey = 'patio'
     
     function patio(){
         const patioTable = document.getElementById('patio')
+
         //Recuperar os dados do localStorage e transformar de JSON para objetos
-        function ler(){}
+        function ler(): VeiculoProps[]{
+            const storage = localStorage.getItem(storageKey)
+            return storage ? JSON.parse(storage) : []
+        }
+
         //Receber um veículo conforme VeiculoProps e persistir os dados
-        function adicionar(veiculo: VeiculoProps){}
+        function salvar(veiculo: VeiculoProps){
+            localStorage.setItem(storageKey, JSON.stringify([...ler(), veiculo]))
+        }
+
         //Remover um veículo dos dados persistidos
         function remover(){}
 
@@ -35,11 +45,12 @@ interface VeiculoProps{
             // td Entrada
             const tdEntrada = document.createElement('td')
             tdEntrada.classList.add('text-center')
-            tdEntrada.innerHTML = veiculo.entrada.toLocaleDateString('pt-BR')
+            const date = new Date(veiculo.entrada)
+            tdEntrada.innerHTML = date.toLocaleDateString('pt-BR')
 
             //Botao delete
             const buttonDel = document.createElement('button')
-            buttonDel.setAttribute('data-placa', veiculo.placa)
+            buttonDel.setAttribute('data-id', veiculo.id)
             buttonDel.classList.add('btn-delete')
             buttonDel.innerHTML = 'x'
 
@@ -55,8 +66,14 @@ interface VeiculoProps{
             patioTable?.appendChild(tr)
         }
 
-        return {ler, adicionar, remover, render}    
+        return {ler, salvar, remover, render}    
     }
+
+    const veiculoList = patio().ler()
+    
+    veiculoList.map( item => {
+        patio().render(item)
+    })
 
     form?.addEventListener('submit', (event) => {
         event.preventDefault()
@@ -69,8 +86,15 @@ interface VeiculoProps{
             return
         }
 
-        //patio().adicionar({nome: nomeField, placa: placaField, entrada: new Date()})
-        patio().render({nome: nomeField, placa: placaField, entrada: new Date()})
+        const veiculo = {
+            id: crypto.randomUUID(), 
+            nome: nomeField, 
+            placa: placaField, 
+            entrada: new Date()
+        }
+
+        patio().salvar(veiculo)
+        patio().render(veiculo)
 
         // Limpa os campos
         form.reset()
