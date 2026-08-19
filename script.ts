@@ -37,6 +37,7 @@ interface VeiculoProps{
             
             //Linha
             const tr = document.createElement('tr')
+            tr.id = veiculo.id
 
             // td Nome
             const tdNome = document.createElement('td')
@@ -52,7 +53,11 @@ interface VeiculoProps{
             const tdEntrada = document.createElement('td')
             tdEntrada.classList.add('text-center')
             const date = new Date(veiculo.entrada)
-            tdEntrada.innerHTML = date.toLocaleDateString('pt-BR')
+            tdEntrada.innerHTML = date.toLocaleDateString('pt-BR', {
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit'
+            })
 
             //Botao delete
             const buttonDel = document.createElement('button')
@@ -118,6 +123,14 @@ interface VeiculoProps{
 
         // Limpa os campos
         form.reset()
+    })
+
+    patioTable?.addEventListener('click', (event) => {
+        const clickTarget = event.target
+
+        console.log(clickTarget)
+        console.log(clickTarget.dataset.id);
+
     })
 
 })();
