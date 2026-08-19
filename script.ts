@@ -21,12 +21,15 @@ interface VeiculoProps{
         }
 
         //Receber um veículo conforme VeiculoProps e persistir os dados
-        function salvar(veiculo: VeiculoProps){
+        function adicionar(veiculo: VeiculoProps){
             localStorage.setItem(storageKey, JSON.stringify([...ler(), veiculo]))
         }
 
         //Remover um veículo dos dados persistidos
-        function remover(){}
+        function remover(id: string){
+            const veiculoList = ler().filter( item => item.id !== id )
+            localStorage.setItem(storageKey, JSON.stringify(veiculoList))
+        }
 
         //Refletir os dados na tabela (<tbody>)
         function render(veiculo: VeiculoProps){
@@ -63,7 +66,7 @@ interface VeiculoProps{
             const buttonDel = document.createElement('button')
             buttonDel.setAttribute('data-id', veiculo.id)
             buttonDel.classList.add('btn-delete')
-            buttonDel.innerHTML = 'x'
+            buttonDel.innerHTML = '<span>x</span>'
 
             // td acao
             const tdAcao = document.createElement('td')
@@ -77,7 +80,7 @@ interface VeiculoProps{
             patioTable?.appendChild(tr)
         }
 
-        return {ler, salvar, remover, render}    
+        return {ler, adicionar, remover, render}    
     }
 
     //Faz a primeira leitura do localStorage
@@ -118,7 +121,7 @@ interface VeiculoProps{
             entrada: new Date()
         }
 
-        patio().salvar(veiculo)
+        patio().adicionar(veiculo)
         patio().render(veiculo)
 
         // Limpa os campos
@@ -126,10 +129,12 @@ interface VeiculoProps{
     })
 
     patioTable?.addEventListener('click', (event) => {
-        const clickTarget = event.target
+        const clickTarget = event.target as HTMLElement
+        const btnDelete = clickTarget.closest('.btn-delete') as HTMLButtonElement
 
-        console.log(clickTarget)
-        console.log(clickTarget.dataset.id);
+        if(btnDelete && btnDelete.dataset.id){
+            patio().remover(btnDelete.dataset.id)
+        }
 
     })
 
