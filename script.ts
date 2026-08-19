@@ -114,6 +114,9 @@ interface VeiculoProps{
         if(!nomeField || !placaField){
             alert('Os campos nome e placa são obrigatórios!')
             return
+        } else if(placaField.length > 7){
+            alert('A placa deve ter no máximo 7 caracteres')
+            return            
         }
 
         const veiculo = {
