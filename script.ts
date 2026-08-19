@@ -35,12 +35,10 @@ interface VeiculoProps{
         function render(veiculo: VeiculoProps){
             //Se a tabela estiver sem veículos, apague o tr com o aviso
             //E depois inicie a criacao da nova linha
-            const semVeiculo = document.getElementById('storage-vazio')
-            semVeiculo ? semVeiculo.remove() : ''
+            document.getElementById('storage-vazio')?.remove()
             
             //Linha
             const tr = document.createElement('tr')
-            tr.id = veiculo.id
 
             // td Nome
             const tdNome = document.createElement('td')
@@ -80,7 +78,7 @@ interface VeiculoProps{
             patioTable?.appendChild(tr)
         }
 
-        return {ler, adicionar, remover, render}    
+        return {ler, adicionar, remover, render}
     }
 
     //Faz a primeira leitura do localStorage
@@ -97,7 +95,7 @@ interface VeiculoProps{
         const td = document.createElement('td')
         td.setAttribute('colspan', '4')
         td.classList.add('text-center')
-        td.innerText = 'Nenhum veículo registrado ainda.'
+        td.innerText = 'Nenhum veículo registrado.'
 
         tr.append(td)
         patioTable?.appendChild(tr)
@@ -134,6 +132,7 @@ interface VeiculoProps{
 
         if(btnDelete && btnDelete.dataset.id){
             patio().remover(btnDelete.dataset.id)
+            btnDelete.closest('tr')?.remove()
         }
 
     })
