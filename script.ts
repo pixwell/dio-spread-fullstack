@@ -135,10 +135,15 @@ interface VeiculoProps{
         const btnDelete = clickTarget.closest('.btn-delete') as HTMLButtonElement
 
         if(btnDelete && btnDelete.dataset.id){
+            //Remove o veiculo e atualiza a lista do localStorage
             patio().remover(btnDelete.dataset.id)
+            //Exclui a linha da tabela
             btnDelete.closest('tr')?.remove()
+            //Verifica se o storage está vazio
+            if(patio().ler().length === 0){
+                patio().renderVazio()
+            }
         }
-
     })
 
 })();
