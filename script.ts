@@ -34,8 +34,8 @@ interface VeiculoProps{
         //Refletir os dados na tabela (<tbody>)
         function render(veiculo: VeiculoProps){
             //Se a tabela estiver sem veículos, apague o tr com o aviso
-            //E depois inicie a criacao da nova linha
             document.getElementById('storage-vazio')?.remove()
+            //E depois inicie a criacao da nova linha
             
             //Linha
             const tr = document.createElement('tr')
@@ -78,7 +78,20 @@ interface VeiculoProps{
             patioTable?.appendChild(tr)
         }
 
-        return {ler, adicionar, remover, render}
+        function renderVazio(){
+            const tr = document.createElement('tr')
+            tr.id = 'storage-vazio'
+
+            const td = document.createElement('td')
+            td.setAttribute('colspan', '4')
+            td.classList.add('text-center')
+            td.innerText = 'Nenhum veículo registrado.'
+
+            tr.append(td)
+            patioTable?.appendChild(tr)
+        }
+
+        return {ler, adicionar, remover, render, renderVazio}
     }
 
     //Faz a primeira leitura do localStorage
@@ -89,16 +102,7 @@ interface VeiculoProps{
             patio().render(item)
         })
     } else {
-        const tr = document.createElement('tr')
-        tr.id = 'storage-vazio'
-
-        const td = document.createElement('td')
-        td.setAttribute('colspan', '4')
-        td.classList.add('text-center')
-        td.innerText = 'Nenhum veículo registrado.'
-
-        tr.append(td)
-        patioTable?.appendChild(tr)
+        patio().renderVazio()
     }
 
     form?.addEventListener('submit', (event) => {
