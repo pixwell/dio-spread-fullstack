@@ -20,20 +20,21 @@ interface VeiculoProps{
             return storage ? JSON.parse(storage) : []
         }
 
-        //Receber um veículo conforme VeiculoProps e persistir os dados
-        function adicionar(veiculo: VeiculoProps){
-            localStorage.setItem(storageKey, JSON.stringify([...ler(), veiculo]))
-        }
-
         //Salvar uma lista de veiculos no localStorage
         function salvar(veiculos: VeiculoProps[]){
             localStorage.setItem(storageKey, JSON.stringify(veiculos))
         }
 
+        //Receber um veículo conforme VeiculoProps e persistir os dados
+        function adicionar(veiculo: VeiculoProps){
+            const veiculoList = [...ler(), veiculo]
+            salvar(veiculoList)
+        }
+
         //Remover um veículo dos dados persistidos
         function remover(id: string){
             const veiculoList = ler().filter( item => item.id !== id )
-            localStorage.setItem(storageKey, JSON.stringify(veiculoList))
+            salvar(veiculoList)
         }
 
         //Refletir os dados na tabela (<tbody>)
