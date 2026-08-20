@@ -147,15 +147,18 @@ interface VeiculoProps{
         return {ler, adicionar, remover, render, renderVazio, calculaTempo}
     }
 
+    //Chama a funcao principal
+    const gerenteDoPatio = patio()
+
     //Faz a primeira leitura do localStorage
-    const veiculoList = patio().ler()
+    const veiculoList = gerenteDoPatio.ler()
     
     if(veiculoList.length > 0){
         veiculoList.forEach( item => {
-            patio().render(item)
+            gerenteDoPatio.render(item)
         })
     } else {
-        patio().renderVazio()
+        gerenteDoPatio.renderVazio()
     }
 
     //Submit registro
@@ -180,8 +183,8 @@ interface VeiculoProps{
             entrada: new Date()
         }
 
-        patio().adicionar(veiculo)
-        patio().render(veiculo)
+        gerenteDoPatio.adicionar(veiculo)
+        gerenteDoPatio.render(veiculo)
 
         // Limpa os campos
         form.reset()
@@ -194,19 +197,19 @@ interface VeiculoProps{
 
         if(btnDelete && btnDelete.dataset.id){
             const veiculoID = btnDelete.dataset.id
-            const tempo = patio().calculaTempo(veiculoID)
+            const tempo = gerenteDoPatio.calculaTempo(veiculoID)
             const confirmaExclusao = confirm(`Tempo estacionado: ${tempo?.str}.\n Tem certeza que deseja encerrar?`)
 
             if(confirmaExclusao){
                 //Remove o veiculo e atualiza a lista do localStorage
-                patio().remover(veiculoID)
+                gerenteDoPatio.remover(veiculoID)
     
                 //Exclui a linha da tabela
                 btnDelete.closest('tr')?.remove()
     
                 //Verifica se o storage está vazio
-                if(patio().ler().length === 0){
-                    patio().renderVazio()
+                if(gerenteDoPatio.ler().length === 0){
+                    gerenteDoPatio.renderVazio()
                 }
             }//Confirm
         }//if
