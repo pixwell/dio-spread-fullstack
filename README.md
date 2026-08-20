@@ -67,4 +67,16 @@ Antes da implementação em sintaxe de código, o fluxo da aplicação segue o s
   ├──────────────┼───────────┼──────────────────┼───────────┤
   │ Fusca Azul   │ ABC-1234  │ 14:30            │ [Deletar] │
   └──────────────┴───────────┴──────────────────┴───────────┘
-  ```
+```
+  ## Instalação
+
+Download do arquivo zip: [Branch estacionamento](https://github.com/pixwell/dio-spread-fullstack/archive/refs/heads/estacionamento.zip)
+
+
+```bash
+unzip estacionamento.zip
+
+cd estacionamento
+
+npm install
+```
