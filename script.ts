@@ -25,6 +25,11 @@ interface VeiculoProps{
             localStorage.setItem(storageKey, JSON.stringify([...ler(), veiculo]))
         }
 
+        //Salvar uma lista de veiculos no localStorage
+        function salvar(veiculos: VeiculoProps[]){
+            localStorage.setItem(storageKey, JSON.stringify(veiculos))
+        }
+
         //Remover um veículo dos dados persistidos
         function remover(id: string){
             const veiculoList = ler().filter( item => item.id !== id )
@@ -105,6 +110,7 @@ interface VeiculoProps{
         patio().renderVazio()
     }
 
+    //Submit registro
     form?.addEventListener('submit', (event) => {
         event.preventDefault()
 
@@ -133,6 +139,7 @@ interface VeiculoProps{
         form.reset()
     })
 
+    //Clique no botão delete
     patioTable?.addEventListener('click', (event) => {
         const clickTarget = event.target as HTMLElement
         const btnDelete = clickTarget.closest('.btn-delete') as HTMLButtonElement
