@@ -13,11 +13,36 @@ interface VeiculoProps{
     const storageKey = 'patio'
     
     function patio(){
+        //Calcula o tempo que o veiculo ficou estacionado
+        function calculaTempo(id: string){
+            const registro = ler().find(veiculo => veiculo.id === id)
+
+            if(!registro) {
+                return
+            }
+
+            const agora = new Date()
+            
+        }
 
         //Recuperar os dados do localStorage e transformar de JSON para objetos
         function ler(): VeiculoProps[]{
             const storage = localStorage.getItem(storageKey)
-            return storage ? JSON.parse(storage) : []
+
+            if(storage){
+                /**
+                 * LocalStorage armazena tudo em string, portanto, e necessario
+                 * converter a propriedade entrada para Date novamente, assim podemos fazer
+                 *  o calculo de tempo estacionado porteriormente.
+                 */
+                return JSON.parse(storage).map((item: VeiculoProps) => {
+                    const {entrada, ...outrasPropriedades} = item
+                    const entradaDate = new Date(entrada)
+                    return { ...outrasPropriedades, entrada: entradaDate }
+                })
+            } else {
+                return []
+            }
         }
 
         //Salvar uma lista de veiculos no localStorage
@@ -97,7 +122,7 @@ interface VeiculoProps{
             patioTable?.appendChild(tr)
         }
 
-        return {ler, adicionar, remover, render, renderVazio}
+        return {ler, adicionar, remover, render, renderVazio, calculaTempo}
     }
 
     //Faz a primeira leitura do localStorage
@@ -146,17 +171,22 @@ interface VeiculoProps{
         const btnDelete = clickTarget.closest('.btn-delete') as HTMLButtonElement
 
         if(btnDelete && btnDelete.dataset.id){
-            //Remove o veiculo e atualiza a lista do localStorage
-            patio().remover(btnDelete.dataset.id)
+            const veiculoID = btnDelete.dataset.id
+            const confirmaExclusao = confirm('Tem certeza?' + patio().calculaTempo(veiculoID))
 
-            //Exclui a linha da tabela
-            btnDelete.closest('tr')?.remove()
-
-            //Verifica se o storage está vazio
-            if(patio().ler().length === 0){
-                patio().renderVazio()
-            }
-        }
+            if(confirmaExclusao){
+                //Remove o veiculo e atualiza a lista do localStorage
+                patio().remover(veiculoID)
+    
+                //Exclui a linha da tabela
+                btnDelete.closest('tr')?.remove()
+    
+                //Verifica se o storage está vazio
+                if(patio().ler().length === 0){
+                    patio().renderVazio()
+                }
+            }//Confirm
+        }//if
     })
 
 })();
