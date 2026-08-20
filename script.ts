@@ -22,13 +22,35 @@ interface VeiculoProps{
             }
 
             const agora = new Date()
+
+            //Tempo estacionado
+            const tempoEmMs = (agora.getTime() - (registro.entrada).getTime())
             
+            /**
+             * CONVERSAO
+             * 1 segundo  = 1.000 ms
+             * 1 minuto   = 60.000 ms | 60 seg
+             * 1 hora     = 3.600.000 ms | 60 min | 3.600 seg
+            */
+            const tempoEmSeg = Math.floor(tempoEmMs / 1000) //Somente os segundos inteiros
+            const horas = Math.floor(tempoEmSeg / 3600)
+            const minutos = Math.floor((tempoEmSeg % 3600)/60) //O que sobrou das horas, dividido por 60 segundos (tempoEmSeg)
+            const segundos = Math.floor(tempoEmSeg % 60) //O que sobrou dos minutos
+
+            const tempoTotal = `${String(horas).padStart(2, '0')}h ${String(minutos).padStart(2, '0')}m ${String(segundos).padStart(2, '0')}s` 
+
+            return {
+                horas,
+                minutos,
+                segundos,
+                str: tempoTotal
+            }
         }
 
         //Recuperar os dados do localStorage e transformar de JSON para objetos
         function ler(): VeiculoProps[]{
             const storage = localStorage.getItem(storageKey)
-
+            
             if(storage){
                 /**
                  * LocalStorage armazena tudo em string, portanto, e necessario
@@ -172,7 +194,8 @@ interface VeiculoProps{
 
         if(btnDelete && btnDelete.dataset.id){
             const veiculoID = btnDelete.dataset.id
-            const confirmaExclusao = confirm('Tem certeza?' + patio().calculaTempo(veiculoID))
+            const tempo = patio().calculaTempo(veiculoID)
+            const confirmaExclusao = confirm(`Tempo estacionado: ${tempo?.str}.\n Tem certeza que deseja encerrar?`)
 
             if(confirmaExclusao){
                 //Remove o veiculo e atualiza a lista do localStorage
